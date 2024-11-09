@@ -32,7 +32,14 @@ class UserController {
         }
     }
     static async delete(req, res) {
-        console.log("delete")
+        // console.log(req.params.id)
+        let id = req.params.id
+        let { deleteCount } = await User.deleteOne({ _id: id })
+        if (deleteCount == 0) {
+            console.log("Không xóa được!!")
+        } else {
+            console.log("Đã Xóa được")
+        }
         res.redirect("/user")
     }
 }
