@@ -1,0 +1,19 @@
+{
+    "name": "baitap1",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node app.cjs",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "baitap1": "file:",
+        "express": "^4.21.1",
+        "nodemon": "^3.1.7"
+    }
+}

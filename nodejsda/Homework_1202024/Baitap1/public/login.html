@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0e0e0; 
+            margin: 0;
+            padding: 0;
+        }
+        .login-container {
+            width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            background-color: #fff; 
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .login-container h2 {
+            text-align: center;
+            color: #333; 
+        }
+        .login-container input {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+        .login-container input:focus {
+            border: 1px solid #4CAF50; 
+            outline: none;
+        }
+        .login-container button.login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50; 
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 10px; 
+        }
+        .login-container button.login-btn:hover {
+            background-color: #45a049; 
+        }
+        .login-options {
+            display: flex;
+            align-items: center; 
+            margin-top: 10px;
+            font-size: 14px;
+            
+        }
+        .login-options label {
+          
+            display: flex;
+            align-items: center; 
+            margin-right: 10px;
+            font-size: 16px; 
+            height: 30px; 
+            width: auto; 
+        }
+        
+        .login-options label input {
+            margin-right: 5px;
+        }
+        .forgot-password {
+            color: #4CAF50; 
+            text-align: center;
+        }
+        .cancel-btn {
+            padding: 8px; 
+            font-size: 14px; 
+            width: auto; 
+            background-color: #f44336; 
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 5px; 
+        }
+        .cancel-btn:hover {
+            background-color: #da190b;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between; 
+            margin-top: 15px;
+            background-color: #DDDDDD; 
+            padding: 5px; 
+            border-radius: 5px; 
+        }
+        .button-container a {
+            color: #4CAF50; 
+            text-decoration: none; 
+            align-self: center; 
+        }
+        .user-info {
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="email" id="username" name="username" placeholder="Username" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            
+            <button type="submit" class="login-btn">Login</button>
+
+            <div class="login-options">
+                <label>
+                    <input type="checkbox" id="rememberMe" name="rememberMe"> Remember me
+                </label>
+            </div>
+
+            <div class="button-container">
+                <button class="cancel-btn" type="button" onclick="cancelAction()">Cancel</button>
+                <div class="forgot-password">
+                    <a href="#">Forgot password?</a>
+                </div>
+            </div>
+        </form>
+
+        <div id="userInfo" class="user-info"></div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('userInfo').innerText = `Welcome ${data.username}! bạn đã đăng nhập thành `;
+                } else {
+                    alert(data.message); 
+                    document.getElementById('userInfo').innerText = ''; 
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+    
+</body>
+</html>
