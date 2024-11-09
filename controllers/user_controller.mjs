@@ -32,17 +32,17 @@ class UserController {
         }
     }
     static async delete(req, res) {
-            // console.log(req.params.id)
-            let id = req.params.id
-            let { deleteCount } = await User.deleteOne({ _id: id })
-            if (deleteCount == 0) {
-                console.log("Không xóa được!!")
-            } else {
-                console.log("Đã Xóa được")
-            }
-            res.redirect("/user")
+        // console.log(req.params.id)
+        let id = req.params.id
+        let { deleteCount } = await User.deleteOne({ _id: id })
+        if (deleteCount == 0) {
+            console.log("Không xóa được!!")
+        } else {
+            console.log("Đã Xóa được")
         }
-        // Phương thức hiển thị form chỉnh sửa
+        res.redirect("/user")
+    }
+
     static async edit(req, res) {
         const id = req.params.id;
         const user = await User.findById(id);
@@ -54,7 +54,7 @@ class UserController {
         }
     }
 
-    // Phương thức cập nhật thông tin người dùng
+
     static async update(req, res) {
         const id = req.params.id;
         const { name, email, age } = req.body;
