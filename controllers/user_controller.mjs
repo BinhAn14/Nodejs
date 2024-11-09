@@ -32,15 +32,41 @@ class UserController {
         }
     }
     static async delete(req, res) {
-        // console.log(req.params.id)
-        let id = req.params.id
-        let { deleteCount } = await User.deleteOne({ _id: id })
-        if (deleteCount == 0) {
-            console.log("Không xóa được!!")
-        } else {
-            console.log("Đã Xóa được")
+            // console.log(req.params.id)
+            let id = req.params.id
+            let { deleteCount } = await User.deleteOne({ _id: id })
+            if (deleteCount == 0) {
+                console.log("Không xóa được!!")
+            } else {
+                console.log("Đã Xóa được")
+            }
+            res.redirect("/user")
         }
-        res.redirect("/user")
+        // Phương thức hiển thị form chỉnh sửa
+    static async edit(req, res) {
+        const id = req.params.id;
+        const user = await User.findById(id);
+
+        if (user) {
+            res.render("formedit", { title: "Edit User", user, error: null });
+        } else {
+            res.redirect("/user");
+        }
+    }
+
+    // Phương thức cập nhật thông tin người dùng
+    static async update(req, res) {
+        const id = req.params.id;
+        const { name, email, age } = req.body;
+
+        try {
+            await User.findByIdAndUpdate(id, { name, email, age });
+            res.redirect("/user");
+        } catch (error) {
+            console.error(error);
+            const user = { _id: id, name, email, age };
+            res.render("formedit", { title: "Edit User", error: "Cập nhật thất bại!", user });
+        }
     }
 }
 
