@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Đặt Chỗ</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Set background color and font */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fb;
+            color: #333;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #007bff;
+            padding: 20px 0;
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        /* Container styling */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        /* Form styling */
+        .form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        /* Button styling */
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .btn.primary {
+            background-color: #28a745;
+        }
+
+        .btn.secondary {
+            background-color: #6c757d;
+            margin-left: 10px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn.secondary:hover {
+            background-color: #5a6268;
+        }
+
+        /* Form actions styling */
+        .form-actions {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            .form {
+                padding: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .btn.secondary {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Thêm Lịch Đặt Chỗ</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <form id="new-booking-form" class="form">
+                <label for="customerName">Tên Khách Hàng</label>
+                <input type="text" name="customerName" placeholder="Nhập tên khách hàng" required>
+
+                <label for="date">Ngày</label>
+                <input type="date" name="date" required>
+
+                <label for="time">Giờ</label>
+                <input type="time" name="time" required>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn primary">Thêm</button>
+                    <a href="index.html" class="btn secondary">Hủy</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script>
+        document.getElementById('new-booking-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            const response = await fetch('/api/bookings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (response.ok) {
+                alert('Đặt chỗ mới thành công!');
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

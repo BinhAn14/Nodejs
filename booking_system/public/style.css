@@ -1,0 +1,157 @@
+/* Reset some default styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Set background color and font */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fb;
+    color: #333;
+}
+
+
+/* Header styling */
+
+header {
+    background-color: #007bff;
+    padding: 20px 0;
+    color: white;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+
+/* Container styling */
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+
+/* Action button */
+
+.action-bar {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.action-bar .btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.action-bar .btn.primary {
+    background-color: #28a745;
+}
+
+.action-bar .btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* Table styling */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 12px 20px;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+td {
+    border-bottom: 1px solid #f4f4f4;
+}
+
+
+/* Status colors */
+
+.status {
+    text-transform: capitalize;
+}
+
+.status.pending {
+    color: #ffc107;
+}
+
+.status.confirmed {
+    color: #28a745;
+}
+
+.status.cancelled {
+    color: #dc3545;
+}
+
+
+/* Button styling */
+
+.btn.small {
+    background-color: #6c757d;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.btn.small:hover {
+    background-color: #5a6268;
+}
+
+.btn.danger {
+    background-color: #dc3545;
+}
+
+.btn.danger:hover {
+    background-color: #c82333;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* Responsiveness */
+
+@media (max-width: 768px) {
+    table {
+        font-size: 0.9rem;
+    }
+    .action-bar {
+        text-align: center;
+    }
+}
