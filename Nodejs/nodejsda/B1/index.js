@@ -1,37 +1,43 @@
-import express from "express"
-import router from "./router/root.mjs"
+import express from "express";
+import router from "./router/root.mjs";
 import userRouter from "./router/user.mjs";
 import bodyParser from "body-parser";
 import methodOverride from 'method-override';
-const app = express();
-const port = 4000;
 import { connectDB } from "./config/connectDB.mjs";
+
+const app = express();
+const port = 5000;
+
+// Kết nối cơ sở dữ liệu
 connectDB();
-app.set("view engine", "ejs")
-app.set("views", "./views")
-app.use(express.static('public'))
 
+// Cấu hình view engine
+app.set("view engine", "ejs");
+app.set("views", "./views");
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded())
+// Sử dụng thư mục tĩnh
+app.use(express.static('public'));
 
-// parse application/json
-app.use(bodyParser.json())
+// Phân tích body URL-encoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
+// Phân tích body JSON
+app.use(bodyParser.json());
+
+// Sử dụng method-override để hỗ trợ HTTP verbs khác như PUT hoặc DELETE
 app.use(methodOverride(function(req, res) {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-        // look in urlencoded POST bodies and delete it
-        var method = req.body._method
-        delete req.body._method
-        return method
+        var method = req.body._method;
+        delete req.body._method;
+        return method;
     }
-}))
+}));
 
-app.use("/", router)
-app.use("/user", userRouter)
+// Cấu hình router
+app.use("/", router);
+app.use("/user", userRouter);
 
-
+// Lắng nghe trên cổng
 app.listen(port, () => {
-    console.log("Server started")
-
-})
+    console.log(`Server started on port ${port}`);
+});
