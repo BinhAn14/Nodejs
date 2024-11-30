@@ -4,12 +4,22 @@ import userRouter from "./router/user.mjs";
 import bodyParser from "body-parser";
 import methodOverride from 'method-override';
 import { connectDB } from "./config/connectDB.mjs";
+import session from "express-session";
 
 const app = express();
 const port = 5000;
 
 // Kết nối cơ sở dữ liệu
 connectDB();
+
+
+app.use(
+    session({
+        secret: "keyboard cat",
+        resave: false,
+        saveUninitialized: true,
+    })
+)
 
 // Cấu hình view engine
 app.set("view engine", "ejs");
